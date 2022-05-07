@@ -9,23 +9,17 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 import com.anatolykravchenko.waveaccesstest.data.network.ApiService
 
+@Module
+@InstallIn(SingletonComponent::class)
 object NetworkModule {
-    @Module
-    @InstallIn(SingletonComponent::class)
-    object AppModule {
-
         @Provides
         @Singleton
         fun provideRetrofit () = Retrofit.Builder()
-            .baseUrl("https://api.openbrewerydb.org/")
+            .baseUrl("https://firebasestorage.googleapis.com")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
         @Provides
         @Singleton
         fun provideApiService(retrofit: Retrofit) = retrofit.create(ApiService::class.java)
-
-    }
-
-
-}
+ }

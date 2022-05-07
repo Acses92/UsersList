@@ -5,7 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class UserItem(
+data class UserItemDto(
     @SerialName("about")
     val about: String,
     @SerialName("address")
