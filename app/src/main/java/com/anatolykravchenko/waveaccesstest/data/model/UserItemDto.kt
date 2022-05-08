@@ -44,4 +44,26 @@ data class UserItemDto(
     val registered: String,
     @SerialName("tags")
     val tags: List<String>
-)
+) {
+    fun toUserItemUi() = UserItemUi(
+        about,
+        address,
+        age,
+        balance,
+        company,
+        email,
+        eyeColor,
+        favoriteFruit,
+        friends = friends.toString(),
+        gender,
+        guid,
+        id,
+        isActive,
+        latitude,
+        longitude,
+        name,
+        phone,
+        registered,
+        tags = tags.toString()
+    )
+}

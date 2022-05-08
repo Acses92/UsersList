@@ -25,4 +25,26 @@ data class UserItemDb(
     val registered: String,
     //было val tags: List<String>
     val tags: String
-)
+) {
+    fun toUserItemUi() = UserItemUi(
+        about,
+        address,
+        age,
+        balance,
+        company,
+        email,
+        eyeColor,
+        favoriteFruit,
+        friends,
+        gender,
+        guid,
+        id,
+        isActive,
+        latitude,
+        longitude,
+        name,
+        phone,
+        registered,
+        tags
+    )
+}
