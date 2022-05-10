@@ -1,9 +1,10 @@
 package com.anatolykravchenko.waveaccesstest.data.model
 
 import androidx.room.Entity
+import com.anatolykravchenko.waveaccesstest.data.model.UserItemUi
 
 @Entity(tableName = "user_item_local", primaryKeys = ["id"])
-data class UserItemDb(
+data class UserItemEntity(
     val about: String,
     val address: String,
     val age: Int,

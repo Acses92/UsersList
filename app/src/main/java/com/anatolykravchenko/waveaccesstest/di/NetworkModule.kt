@@ -8,6 +8,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 import com.anatolykravchenko.waveaccesstest.data.network.ApiService
+import com.anatolykravchenko.waveaccesstest.domain.UserNetworkRepository
+import com.anatolykravchenko.waveaccesstest.data.network.UserNetworkRepositoryImpl
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -19,7 +21,13 @@ object NetworkModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
+
         @Provides
         @Singleton
         fun provideApiService(retrofit: Retrofit) = retrofit.create(ApiService::class.java)
+
+        @Provides
+        @Singleton
+        fun getUserRepository(apiService: ApiService): UserNetworkRepository =
+                UserNetworkRepositoryImpl(apiService)
  }

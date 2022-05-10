@@ -1,28 +1,22 @@
-package com.anatolykravchenko.waveaccesstest.data.database
+package com.anatolykravchenko.waveaccesstest.domain
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
 import com.anatolykravchenko.waveaccesstest.data.model.UserItemEntity
+import com.anatolykravchenko.waveaccesstest.data.model.UserItemUi
 
-@Dao
-interface UserDao {
+
+interface UserLocalRepository {
     /**
      *Получает список всех пользователей
      */
-    @Query("SELECT * FROM user_item_local")
-    suspend fun getAll(): List<UserItemEntity>
+    suspend fun getAll(): List<UserItemUi>
 
     /**
      * Удаляет всех пользователей
      */
-    @Query("DELETE FROM user_item_local")
     suspend fun dellAll()
 
     /**
      * Добавляет список пользователей
      */
-    @Insert
     suspend fun insert(userItemDb: UserItemEntity)
-
 }
