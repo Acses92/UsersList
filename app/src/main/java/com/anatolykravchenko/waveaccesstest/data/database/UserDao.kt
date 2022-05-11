@@ -23,6 +23,6 @@ interface UserDao {
      * Добавляет список пользователей
      */
     @Insert
-    suspend fun insert(userItemDb: UserItemEntity)
+    suspend fun insert(userItemEntity: List<UserItemEntity>)
 
 }

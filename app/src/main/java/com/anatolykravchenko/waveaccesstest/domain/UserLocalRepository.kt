@@ -18,5 +18,5 @@ interface UserLocalRepository {
     /**
      * Добавляет список пользователей
      */
-    suspend fun insert(userItemDb: UserItemEntity)
+    suspend fun insert(userItemUi: List<UserItemUi>)
 }

@@ -7,15 +7,12 @@ import com.anatolykravchenko.waveaccesstest.domain.UserLocalRepository
 class UserLocalRepositoryImpl(
     private val userDao: UserDao
 ): UserLocalRepository    {
-    override suspend fun getAll(): List<UserItemUi> {
-        TODO("Not implemented")
-    }
+    override suspend fun getAll(): List<UserItemUi> =
+        userDao.getAll().map{ it.toUserItemUi()}
 
-    override suspend fun dellAll() {
-        TODO("Not yet implemented")
-    }
+    override suspend fun dellAll() = userDao.dellAll()
 
-    override suspend fun insert(userItemDb: UserItemEntity) {
-        TODO("Not yet implemented 2")
+    override suspend fun insert(userItemUi: List<UserItemUi>) {
+        userDao.insert(userItemUi.map { it.toUserItemEntity() })
     }
 }

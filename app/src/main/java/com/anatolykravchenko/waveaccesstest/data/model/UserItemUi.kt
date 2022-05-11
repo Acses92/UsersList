@@ -27,3 +27,26 @@ data class UserItemUi(
     //поправить val tags: List<String>
     val tags: String
 ): Parcelable
+{
+    fun toUserItemEntity() = UserItemEntity(
+        about,
+        address,
+        age,
+        balance,
+        company,
+        email,
+        eyeColor,
+        favoriteFruit,
+        friends,
+        gender,
+        guid,
+        id,
+        isActive,
+        latitude,
+        longitude,
+        name,
+        phone,
+        registered,
+        tags
+    )
+}
