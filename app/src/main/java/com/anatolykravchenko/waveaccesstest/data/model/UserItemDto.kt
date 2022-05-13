@@ -64,6 +64,6 @@ data class UserItemDto(
         name,
         phone,
         registered,
-        tags = tags.toString()
+        tags = tags
     )
 }

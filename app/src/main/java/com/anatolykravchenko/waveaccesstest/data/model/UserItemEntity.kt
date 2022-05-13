@@ -1,7 +1,8 @@
 package com.anatolykravchenko.waveaccesstest.data.model
 
 import androidx.room.Entity
-import com.anatolykravchenko.waveaccesstest.data.model.UserItemUi
+import androidx.room.TypeConverters
+import com.anatolykravchenko.waveaccesstest.data.database.Converters
 
 @Entity(tableName = "user_item_local", primaryKeys = ["id"])
 data class UserItemEntity(
@@ -25,7 +26,8 @@ data class UserItemEntity(
     val phone: String,
     val registered: String,
     //было val tags: List<String>
-    val tags: String
+    @TypeConverters(Converters::class)
+    val tags: List<String>
 ) {
     fun toUserItemUi() = UserItemUi(
         about,

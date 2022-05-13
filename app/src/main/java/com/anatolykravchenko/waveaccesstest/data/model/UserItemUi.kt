@@ -25,7 +25,7 @@ data class UserItemUi(
     val phone: String,
     val registered: String,
     //поправить val tags: List<String>
-    val tags: String
+    val tags: List<String>
 ): Parcelable
 {
     fun toUserItemEntity() = UserItemEntity(
