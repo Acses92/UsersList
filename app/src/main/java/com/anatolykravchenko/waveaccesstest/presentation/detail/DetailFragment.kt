@@ -1,5 +1,6 @@
 package com.anatolykravchenko.waveaccesstest.presentation.detail
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -11,7 +12,8 @@ import com.anatolykravchenko.waveaccesstest.databinding.DetailFragmentBinding
 import com.anatolykravchenko.waveaccesstest.data.model.UserItemUi
 import android.net.Uri
 import android.os.Build
-import androidx.annotation.RequiresApi
+import java.math.BigDecimal
+import java.math.RoundingMode
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -29,7 +31,6 @@ class DetailFragment: Fragment(R.layout.detail_fragment) {
         phoneClickListener()
     }
 
-
     private fun setupUi() {
         binding.userNameDetailValueTv.text = user?.name
         binding.userAgeDetailValueTv.text = user?.age.toString()
@@ -38,15 +39,16 @@ class DetailFragment: Fragment(R.layout.detail_fragment) {
         binding.userPhoneDetailValueTv.text = user?.phone
         binding.userAddressDetailValueTv.text = user?.address
         binding.userAboutDetailValueTv.text = user?.about
-        binding.userRegisteredDetailValueTv.text = user?.registered
-      //  dataFormatter()
+        dataFormatter()
         eyeColorImageSetup()
         favoriteFruitImageSetup()
+        coordinateSetup()
+        coordinateClickListener()
     }
 
     private fun dataFormatter() {
         val formatter = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss SSSXXX" )
+            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss z")
         } else {
             TODO("VERSION.SDK_INT < O")
         }
@@ -84,6 +86,32 @@ class DetailFragment: Fragment(R.layout.detail_fragment) {
         }
     }
 
+    @SuppressLint("SetTextI18n")
+    private fun coordinateSetup() {
+        val latitude = user?.latitude?.let {
+            BigDecimal(it).setScale(4, RoundingMode.DOWN)
+        }
+        val longitude = user?.longitude?.let {
+            BigDecimal(it).setScale(4, RoundingMode.DOWN)
+        }
+        binding.userCoordinatesDetailValueTv.text = latitude.toString() + " " + longitude.toString()
+    }
+
+    private fun coordinateClickListener() {
+        val latitude = user?.latitude?.let {
+            BigDecimal(it).setScale(4, RoundingMode.DOWN)
+        }
+        val longitude = user?.longitude?.let {
+            BigDecimal(it).setScale(4, RoundingMode.DOWN)
+        }
+        binding.userCoordinatesDetailValueTv.setOnClickListener {
+            val gpsIntentUri = Uri.parse("geo:$latitude,$longitude")
+            val mapIntent = Intent(Intent.ACTION_VIEW, gpsIntentUri)
+            mapIntent.setPackage("com.google.android.apps.maps")
+            //Добавить проверку есть ли карты
+            startActivity(mapIntent)
+        }
+    }
 
 
     private fun emailClickListener() {
