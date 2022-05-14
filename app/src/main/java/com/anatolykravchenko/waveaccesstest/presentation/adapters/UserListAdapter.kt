@@ -25,10 +25,10 @@ class UserListAdapter(private val onItemClicked: (UserItemUi) ->Unit):
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val user = myData[position]
         holder.apply {
-            binding.userName.text = user.name
-            binding.userEmail.text = user.email
+            binding.userNameViewHolder.text = user.name
+            binding.userNameViewHolder.text = user.email
             if(user.isActive) {
-                binding.isActiveStatsuTextView.isVisible
+                binding.isActiveStatusViewHolder.isVisible
                 holder.itemView.setOnClickListener{onItemClicked(user)}
             }
         }
