@@ -25,6 +25,8 @@
     <string name="user_detail_eye_color_text">Eye color</string>
     <string name="user_detail_favorite_fruit_text">Favorite Fruit</string>
     <string name="user_detail_registered_text">Registered</string>
+    <string name="user_detail_registered_text_value">23.04.45</string>
     <string name="user_detail_coordinates_text">Coordinates</string>
     <string name="user_detail_coordinates_value">Coordinates</string>
+    <string name="user_detail_friends_header">Friends</string>
 </resources>

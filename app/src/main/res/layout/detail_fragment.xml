@@ -54,7 +54,7 @@
                     android:layout_width="20dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:gravity="center"
+                    android:gravity="center|left"
                     android:text="@string/user_detail_name_text" />
 
                 <TextView
@@ -77,11 +77,11 @@
                     android:layout_width="20dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:gravity="center"
+                    android:gravity="center|left"
                     android:text="@string/user_detail_age_text" />
 
                 <TextView
-                    android:id="@+id/textView6"
+                    android:id="@+id/user_age_detail_value_tv"
                     android:layout_width="90dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
@@ -100,11 +100,11 @@
                     android:layout_width="20dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:gravity="center"
+                    android:gravity="center|left"
                     android:text="@string/user_detail_company_text" />
 
                 <TextView
-                    android:id="@+id/textView8"
+                    android:id="@+id/user_company_detail_value_tv"
                     android:layout_width="90dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
@@ -116,6 +116,7 @@
                 android:id="@+id/email_linear_layout"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
@@ -123,16 +124,16 @@
                     android:layout_width="20dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:gravity="center"
+                    android:gravity="center|left"
                     android:text="@string/user_detail_email_text" />
 
-                <EditText
-                    android:id="@+id/editTextTextEmailAddress"
+                <TextView
+                    android:id="@+id/user_email_detail_value_tv"
                     android:layout_width="90dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="textEmailAddress" />
+                    android:gravity="center"
+                    android:text="@string/user_detail_name_email_value" />
 
             </LinearLayout>
 
@@ -147,16 +148,16 @@
                     android:layout_width="20dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:gravity="center"
+                    android:gravity="center|left"
                     android:text="@string/user_detail_phone_text" />
 
-                <EditText
-                    android:id="@+id/editTextPhone"
+                <TextView
+                    android:id="@+id/user_phone_detail_value_tv"
                     android:layout_width="90dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="phone" />
+                    android:gravity="center"
+                    android:text="@string/user_detail_name_phone_value" />
 
             </LinearLayout>
 
@@ -171,11 +172,11 @@
                     android:layout_width="20dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:gravity="center"
+                    android:gravity="center|left"
                     android:text="@string/user_detail_address_text" />
 
                 <TextView
-                    android:id="@+id/textView15"
+                    android:id="@+id/user_address_detail_value_tv"
                     android:layout_width="90dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
@@ -194,11 +195,11 @@
                     android:layout_width="20dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="center"
+                    android:gravity="center|left"
                     android:text="@string/user_detail_about_text" />
 
                 <TextView
-                    android:id="@+id/textView17"
+                    android:id="@+id/user_about_detail_value_tv"
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -217,11 +218,11 @@
                     android:layout_width="20dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:gravity="center"
+                    android:gravity="center|left"
                     android:text="@string/user_detail_eye_color_text" />
 
                 <ImageView
-                    android:id="@+id/imageView"
+                    android:id="@+id/eye_color_imange_view"
                     android:layout_width="90dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
@@ -239,7 +240,7 @@
                     android:layout_width="20dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:gravity="center"
+                    android:gravity="center|left"
                     android:text="@string/user_detail_favorite_fruit_text" />
 
                 <ImageView
@@ -262,16 +263,16 @@
                     android:layout_width="20dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:gravity="center"
+                    android:gravity="center|left"
                     android:text="@string/user_detail_registered_text" />
 
-                <EditText
-                    android:id="@+id/editTextDate"
+                <TextView
+                    android:id="@+id/user_registered_detail_value_tv"
                     android:layout_width="90dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="date" />
+                    android:gravity="center"
+                    android:text="@string/user_detail_registered_text_value" />
 
             </LinearLayout>
 
@@ -286,16 +287,30 @@
                     android:layout_width="20dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:gravity="center"
+                    android:gravity="center|left"
                     android:text="@string/user_detail_coordinates_text" />
 
                 <TextView
-                    android:id="@+id/textView23"
+                    android:id="@+id/user_coordinates_detail_value_tv"
                     android:layout_width="90dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="TextView" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/fre"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/friemd_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/user_detail_friends_header" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -305,4 +320,5 @@
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

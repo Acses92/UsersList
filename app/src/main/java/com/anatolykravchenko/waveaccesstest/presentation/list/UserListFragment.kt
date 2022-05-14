@@ -15,6 +15,8 @@ import com.anatolykravchenko.waveaccesstest.presentation.adapters.UserListAdapte
 import com.anatolykravchenko.waveaccesstest.presentation.list.UserState.Success
 import com.anatolykravchenko.waveaccesstest.presentation.list.UserState.Error
 import com.anatolykravchenko.waveaccesstest.presentation.list.UserState.Loading
+import com.anatolykravchenko.waveaccesstest.data.model.UserItemUi
+import com.anatolykravchenko.waveaccesstest.presentation.detail.DetailFragment
 
 
 @AndroidEntryPoint
@@ -24,6 +26,11 @@ class UserListFragment: Fragment(R.layout.user_list_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupAdapter()
+        setupOpenDetail()
+    }
+
+    private fun setupAdapter() {
         val userListAdapter = UserListAdapter(viewModel::onUserClicked)
         with(binding.usersList) {
             adapter = userListAdapter
@@ -34,20 +41,36 @@ class UserListFragment: Fragment(R.layout.user_list_fragment) {
             when(state) {
                 is Error -> {
                     binding.usersList.isVisible = false
+                    binding.progressBar.isVisible = false
                     Toast.makeText(context, "Ошибка", Toast.LENGTH_LONG)
                         .show()
                 }
                 is Success ->{
                     binding.usersList.isVisible = true
+                    binding.progressBar.isVisible = false
                     userListAdapter.submitList(state.users)
-                    Toast.makeText(context, "Всё ок", Toast.LENGTH_LONG)
-                        .show()
                 }
                 is Loading -> {
                     binding.usersList.isVisible = false
+                    binding.progressBar.isVisible = true
                 }
             }
-
         }
+    }
+
+
+    private fun setupOpenDetail() {
+        viewModel.openUser.observe(viewLifecycleOwner) {
+            openUserDetail(it)
+        }
+    }
+
+    private fun openUserDetail(user: UserItemUi) {
+        val fragment = DetailFragment.newInstance(user)
+        parentFragmentManager
+            .beginTransaction()
+            .replace(R.id.main_fragment_container, fragment, "DetailFragment")
+            .addToBackStack(null)
+            .commit()
     }
 }

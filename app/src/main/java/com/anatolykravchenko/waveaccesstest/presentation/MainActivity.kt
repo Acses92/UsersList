@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         val userListFragment = UserListFragment()
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.mainFragmentContainer, userListFragment, "USER_LIST_FRAGMENT")
+            .add(R.id.main_fragment_container, userListFragment, "USER_LIST_FRAGMENT")
             .commit()
     }
 }
