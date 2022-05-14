@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.anatolykravchenko.waveaccesstest.data.model.UserItemUi
-import com.anatolykravchenko.waveaccesstest.R
 import com.anatolykravchenko.waveaccesstest.databinding.UserItemBinding
 
 class UserListAdapter(private val onItemClicked: (UserItemUi) ->Unit):
