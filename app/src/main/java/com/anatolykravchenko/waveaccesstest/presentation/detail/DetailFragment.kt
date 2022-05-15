@@ -136,7 +136,6 @@ class DetailFragment: Fragment(R.layout.detail_fragment) {
 
     }
 
-
     private fun backButtonPress() {
         binding.backButton.setOnClickListener {
             parentFragmentManager.popBackStack()
