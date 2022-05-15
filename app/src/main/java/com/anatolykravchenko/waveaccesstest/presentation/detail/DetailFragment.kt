@@ -25,13 +25,18 @@ class DetailFragment: Fragment(R.layout.detail_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         user = arguments?.getParcelable(DETAIL_KEY)
-        setupUi()
+        setupTextView()
         backButtonPress()
         emailClickListener()
         phoneClickListener()
+        coordinateClickListener()
+        setupDateFormat()
+        eyeColorImageSetup()
+        favoriteFruitImageSetup()
+        coordinateSetup()
     }
 
-    private fun setupUi() {
+    private fun setupTextView() {
         binding.userNameDetailValueTv.text = user?.name
         binding.userAgeDetailValueTv.text = user?.age.toString()
         binding.userCompanyDetailValueTv.text = user?.company
@@ -39,14 +44,10 @@ class DetailFragment: Fragment(R.layout.detail_fragment) {
         binding.userPhoneDetailValueTv.text = user?.phone
         binding.userAddressDetailValueTv.text = user?.address
         binding.userAboutDetailValueTv.text = user?.about
-        dataFormatter()
-        eyeColorImageSetup()
-        favoriteFruitImageSetup()
-        coordinateSetup()
-        coordinateClickListener()
+
     }
 
-    private fun dataFormatter() {
+    private fun setupDateFormat() {
         val formatter = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss z")
         } else {
