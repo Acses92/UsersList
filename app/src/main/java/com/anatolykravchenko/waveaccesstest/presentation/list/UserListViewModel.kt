@@ -48,6 +48,18 @@ class UserListViewModel @Inject constructor(
         }
     }
 
+    fun onRefresh() {
+        viewModelScope.launch {
+            try {
+                val users: List<UserItemUi> = userNetworkRepository.getUserList().map {
+                    it.toUserItemUi() }
+                _screenState.value = Success(users)
+            } catch(error: Throwable) {
+                _screenState.value = Error(error)
+            }
+        }
+    }
+
     private suspend fun loadFromServerToDb() {
         val localUserSet = userLocalRepository.getAll().map { it.toUserItemEntity() }.toHashSet()
         val newUserSet: List<UserItemUi> = userNetworkRepository.getUserList().map { it.toUserItemUi() }

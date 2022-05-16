@@ -24,11 +24,17 @@ class UserListFragment: Fragment(R.layout.user_list_fragment) {
     private val binding by viewBinding(UserListFragmentBinding::bind)
     private val viewModel by viewModels<UserListViewModel>()
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupAdapter()
         setupOpenDetail()
+        binding.swipeContainer.setOnRefreshListener {
+            viewModel.onRefresh()
+            binding.swipeContainer.isRefreshing = false
+        }
     }
+
 
     private fun setupAdapter() {
         val userListAdapter = UserListAdapter(viewModel::onUserClicked)
