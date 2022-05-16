@@ -12,9 +12,11 @@ import com.anatolykravchenko.waveaccesstest.databinding.DetailFragmentBinding
 import com.anatolykravchenko.waveaccesstest.data.model.UserItemUi
 import android.net.Uri
 import android.os.Build
+import androidx.annotation.RequiresApi
 import java.math.BigDecimal
 import java.math.RoundingMode
-import java.time.LocalDate
+
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 @AndroidEntryPoint
@@ -22,6 +24,7 @@ class DetailFragment: Fragment(R.layout.detail_fragment) {
     private val binding by viewBinding(DetailFragmentBinding::bind)
     private var user: UserItemUi? = null
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         user = arguments?.getParcelable(DETAIL_KEY)
@@ -47,16 +50,14 @@ class DetailFragment: Fragment(R.layout.detail_fragment) {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun setupDateFormat() {
-        val formatter = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss z")
-        } else {
-            TODO("VERSION.SDK_INT < O")
-        }
-        val data = user?.registered
-        binding.userRegisteredDetailValueTv.text =
-                LocalDate.parse(data, formatter).toString()
+        val oldFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss z")
+        val date = LocalDateTime.parse(user?.registered, oldFormatter)
+        val formatter = DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy")
+        binding.userRegisteredDetailValueTv.text = formatter.format(date)
     }
+
 
     private fun eyeColorImageSetup() {
         val eyeColor= user?.eyeColor
