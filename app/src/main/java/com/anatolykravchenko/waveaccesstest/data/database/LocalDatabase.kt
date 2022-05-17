@@ -11,7 +11,7 @@ import androidx.room.TypeConverters
     version = 1,
     exportSchema = false
 )
-@TypeConverters(Converters::class)
+@TypeConverters(ListToStringConverter::class, StringToFriendConverter::class)
 abstract class LocalDatabase: RoomDatabase() {
 
     abstract val userDao: UserDao

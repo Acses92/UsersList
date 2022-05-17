@@ -26,7 +26,7 @@ data class UserItemEntity(
     val phone: String,
     val registered: String,
     //было val tags: List<String>
-    @TypeConverters(Converters::class)
+    @TypeConverters(ListToStringConverter::class)
     val tags: List<String>
 ) {
     fun toUserItemUi() = UserItemUi(

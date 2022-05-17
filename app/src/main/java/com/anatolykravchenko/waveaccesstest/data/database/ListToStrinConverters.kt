@@ -2,7 +2,7 @@ package com.anatolykravchenko.waveaccesstest.data.database
 
 import androidx.room.TypeConverter
 
-class Converters {
+class ListToStringConverter {
     @TypeConverter
     fun fromListToString(list: List<String>): String {
         return list.joinToString(separator = ",")
@@ -12,5 +12,4 @@ class Converters {
     fun fromStringToList(string: String): List<String> {
         return string.split(",").map{it.trim()}
     }
-
 }

@@ -13,9 +13,11 @@ import com.anatolykravchenko.waveaccesstest.data.model.UserItemUi
 import android.net.Uri
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import java.math.BigDecimal
 import java.math.RoundingMode
-
+import com.anatolykravchenko.waveaccesstest.presentation.adapters.FriendsListAdapter
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -23,11 +25,13 @@ import java.time.format.DateTimeFormatter
 class DetailFragment: Fragment(R.layout.detail_fragment) {
     private val binding by viewBinding(DetailFragmentBinding::bind)
     private var user: UserItemUi? = null
+    private val viewModel by viewModels<DetailFragmentViewModel>()
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         user = arguments?.getParcelable(DETAIL_KEY)
+        friendRecyclerViewSetup()
         setupTextView()
         backButtonPress()
         emailClickListener()
@@ -37,6 +41,22 @@ class DetailFragment: Fragment(R.layout.detail_fragment) {
         eyeColorImageSetup()
         favoriteFruitImageSetup()
         coordinateSetup()
+    }
+    val user1: UserItemUi = UserItemUi("fd", "asd", 14, "das", "sad",
+    "sad", "fds", "dsa", "asd", "sad", "asd", 13, true,
+    41.154, 145.142, "alex", "asdf", "14.58.1", emptyList())
+
+    val user2: UserItemUi = UserItemUi("fd", "asd", 14, "das", "sad",
+        "sad", "fds", "dsa", "asd", "sad", "asd", 13, true,
+        41.154, 145.142, "alex", "asdf", "14.58.1", emptyList())
+
+    private fun friendRecyclerViewSetup() {
+        val friendListAdapter = FriendsListAdapter(viewModel::onFriendClicked)
+        with(binding.friendsRecyclerView) {
+            adapter = friendListAdapter
+            layoutManager = LinearLayoutManager(context)
+            friendListAdapter.submitList(listOf(user1, user2))
+        }
     }
 
     private fun setupTextView() {
