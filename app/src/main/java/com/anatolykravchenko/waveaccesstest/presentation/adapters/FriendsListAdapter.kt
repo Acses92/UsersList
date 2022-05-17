@@ -1,14 +1,12 @@
 package com.anatolykravchenko.waveaccesstest.presentation.adapters
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.anatolykravchenko.waveaccesstest.data.model.UserItemUi
-import com.anatolykravchenko.waveaccesstest.databinding.UserItemBinding
 
-class UserListAdapter(private val onItemClicked: (UserItemUi) ->Unit):
+
+class FriendsListAdapter(private val onIteClicked: (UserItemUi) -> Unit ):
     ListAdapter<UserItemUi, UserViewHolder>(
         object: DiffUtil.ItemCallback<UserItemUi>() {
             override fun areContentsTheSame(oldItem: UserItemUi, newItem: UserItemUi): Boolean =
@@ -18,28 +16,11 @@ class UserListAdapter(private val onItemClicked: (UserItemUi) ->Unit):
                     oldItem.name ==newItem.name
         }
     ) {
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
-        return UserViewHolder(
-        UserItemBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-          )
-        )
+        TODO("Not yet implemented")
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-        with(holder.binding) {
-            val item = getItem(position)
-            userNameViewHolder.text = item.name
-            userEmailViewHolder.text = item.email
-            if(item.isActive) {
-                isActiveStatusViewHolder.isVisible = true
-                root.setOnClickListener { onItemClicked(item) }
-            }
-        }
+        TODO("Not yet implemented")
     }
-
-
 }

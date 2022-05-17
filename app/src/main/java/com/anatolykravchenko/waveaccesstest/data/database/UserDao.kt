@@ -3,7 +3,6 @@ package com.anatolykravchenko.waveaccesstest.data.database
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.anatolykravchenko.waveaccesstest.data.model.UserItemEntity
 
 @Dao
 interface UserDao {

@@ -1,8 +1,8 @@
-package com.anatolykravchenko.waveaccesstest.data.model
+package com.anatolykravchenko.waveaccesstest.data.database
 
 import androidx.room.Entity
 import androidx.room.TypeConverters
-import com.anatolykravchenko.waveaccesstest.data.database.Converters
+import com.anatolykravchenko.waveaccesstest.data.model.UserItemUi
 
 @Entity(tableName = "user_item_local", primaryKeys = ["id"])
 data class UserItemEntity(

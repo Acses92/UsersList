@@ -1,6 +1,5 @@
 package com.anatolykravchenko.waveaccesstest.domain
 
-import com.anatolykravchenko.waveaccesstest.data.model.UserItemEntity
 import com.anatolykravchenko.waveaccesstest.data.model.UserItemUi
 
 

@@ -1,4 +1,4 @@
-package com.anatolykravchenko.waveaccesstest.data.model
+package com.anatolykravchenko.waveaccesstest.data.database
 
 import androidx.room.Entity
 
