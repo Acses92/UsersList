@@ -30,6 +30,6 @@ interface UserDao {
      * Получаем список пользователей по ID
      */
     @Query("SELECT * FROM user_item_local WHERE id = :id")
-    suspend fun getById(id: Int): UserItemEntity
+    suspend fun getById(id: Int): List<UserItemEntity>
 
 }

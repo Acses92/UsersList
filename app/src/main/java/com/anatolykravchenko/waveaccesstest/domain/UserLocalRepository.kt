@@ -22,5 +22,5 @@ interface UserLocalRepository {
     /**
      * Получает пользователя по ID
      */
-    suspend fun getUserById(id: Int): UserItemUi
+    suspend fun getUserById(id: Int): List<UserItemUi>
 }

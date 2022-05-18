@@ -1,6 +1,7 @@
 package com.anatolykravchenko.waveaccesstest.presentation.detail
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.anatolykravchenko.waveaccesstest.R
@@ -18,22 +19,22 @@ class DetailFragmentViewModel @Inject constructor(
     private val _openFriend = SingleLiveEvent<UserItemUi>()
     val openFriend: LiveData<UserItemUi> = _openFriend
 
+    private val friend = MutableLiveData<List<UserItemUi>>()
+    val screenState:LiveData<List<UserItemUi>> = friend
 
     fun onFriendClicked(user: UserItemUi) {
         _openFriend.value = user
     }
 
-    fun getFriends(id: Int): UserItemUi? {
-        var user: UserItemUi? = null
+    fun getFriends(id: Int) {
         viewModelScope.launch {
-            try{
-               user = userLocalRepository.getUserById(id)
-            } catch (error: Throwable) {
-
-            }
+            friend.value = userLocalRepository.getUserById(id)
         }
-        return user
     }
 
-
+    sealed class UserState {
+        class Loading(): UserState()
+        class Success(val users: List<UserItemUi>): UserState()
+        class Error(val throwable: Throwable): UserState()
+    }
 }

@@ -25,7 +25,7 @@ class DetailFragment: Fragment(R.layout.detail_fragment) {
     private val binding by viewBinding(DetailFragmentBinding::bind)
     private var user: UserItemUi? = null
     private val viewModel by viewModels<DetailFragmentViewModel>()
-    private lateinit var friends: List<UserItemUi>
+    private lateinit var friends: MutableList<UserItemUi>
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,7 +41,6 @@ class DetailFragment: Fragment(R.layout.detail_fragment) {
         eyeColorImageSetup()
         favoriteFruitImageSetup()
         coordinateSetup()
-        getFriendsId()
         friendRecyclerViewSetup()
     }
 
@@ -60,7 +59,12 @@ class DetailFragment: Fragment(R.layout.detail_fragment) {
         with(binding.friendsRecyclerView) {
             adapter = friendListAdapter
             layoutManager = LinearLayoutManager(context)
-            friendListAdapter.submitList(friends)
+            val firstFriendId = user!!.friends.substringBefore(",").filter {
+                it.isDigit() }.toInt()
+            val secondFriendId = user!!.friends.substringAfter(",").filter {
+                it.isDigit()}.toInt()
+            val firstFriend = viewModel.getFriends(firstFriendId)
+            val secondFriend = viewModel.getFriends(secondFriendId)
         }
     }
 
@@ -172,16 +176,6 @@ class DetailFragment: Fragment(R.layout.detail_fragment) {
         viewModel.openFriend.observe(viewLifecycleOwner) {
             openFriendDetail(it)
         }
-    }
-
-    private fun getFriendsId() {
-        val firstFriendId = user?.friends?.substringBefore(",")?.filter {
-            it.isDigit() }?.toInt()
-        val secondFriendId = user?.friends?.substringAfter(",")?.filter {
-            it.isDigit()}?.toInt()
-        val firstFriend = viewModel.getFriends(firstFriendId!!)
-        val secondFriend = viewModel.getFriends(secondFriendId!!)
-
     }
 
 
