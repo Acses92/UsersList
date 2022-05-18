@@ -14,7 +14,6 @@ data class UserItemUi(
     val email: String,
     val eyeColor: String,
     val favoriteFruit: String,
-    //поправить val friends: List<Friend>,
     val friends: List<Friend>,
     val gender: String,
     val guid: String,
@@ -25,7 +24,6 @@ data class UserItemUi(
     val name: String,
     val phone: String,
     val registered: String,
-    //поправить val tags: List<String>
     val tags: List<String>
 ): Parcelable
 {

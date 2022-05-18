@@ -3,6 +3,9 @@ package com.anatolykravchenko.waveaccesstest.di
 import android.content.Context
 import com.anatolykravchenko.waveaccesstest.data.database.LocalDatabase
 
+/**
+ * DI локальной базы данных
+ */
 object DatabaseProvider {
     private var db: LocalDatabase? = null
 

@@ -7,6 +7,9 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.anatolykravchenko.waveaccesstest.data.database.entity.UserItemEntity
 
+/**
+ * База данных
+ */
 @Database(
     entities = [UserItemEntity::class],
     version = 1,

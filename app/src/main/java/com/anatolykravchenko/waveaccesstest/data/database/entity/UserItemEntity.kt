@@ -7,6 +7,9 @@ import com.anatolykravchenko.waveaccesstest.data.database.StringToFriendConverte
 import com.anatolykravchenko.waveaccesstest.data.model.UserItemUi
 import com.anatolykravchenko.waveaccesstest.data.model.Friend
 
+/**
+ * Класс для хранения параметров User
+ */
 @Entity(tableName = "user_item_local", primaryKeys = ["id"])
 data class UserItemEntity(
     val about: String,

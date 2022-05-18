@@ -3,6 +3,9 @@ package com.anatolykravchenko.waveaccesstest.data.database
 import com.anatolykravchenko.waveaccesstest.data.model.UserItemUi
 import com.anatolykravchenko.waveaccesstest.domain.UserLocalRepository
 
+/**
+ * Имплементация DAO
+ */
 class UserLocalRepositoryImpl(
     private val userDao: UserDao
 ): UserLocalRepository    {
@@ -15,7 +18,7 @@ class UserLocalRepositoryImpl(
         userDao.insert(userItemUi.map { it.toUserItemEntity() })
     }
 
-    override suspend fun getUserById(id: Int): List<UserItemUi> =
-        userDao.getById(id).map {it.toUserItemUi()}
+    override suspend fun getUserById(id: Int): UserItemUi =
+        userDao.getById(id).toUserItemUi()
 
 }

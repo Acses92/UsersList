@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.anatolykravchenko.waveaccesstest.R
+import com.anatolykravchenko.waveaccesstest.data.model.Friend
 import com.anatolykravchenko.waveaccesstest.data.model.UserItemUi
 import com.anatolykravchenko.waveaccesstest.domain.UserLocalRepository
 import com.anatolykravchenko.waveaccesstest.presentation.common.SingleLiveEvent
@@ -16,20 +16,21 @@ import javax.inject.Inject
 class DetailFragmentViewModel @Inject constructor(
     private val userLocalRepository: UserLocalRepository
 ) : ViewModel() {
+
     private val _openFriend = SingleLiveEvent<UserItemUi>()
     val openFriend: LiveData<UserItemUi> = _openFriend
 
-    private val friend = MutableLiveData<List<UserItemUi>>()
-    val _friend:LiveData<List<UserItemUi>> = friend
+    private val _friend = MutableLiveData<List<UserItemUi>>()
+    val friend:LiveData<List<UserItemUi>> = _friend
 
     fun onFriendClicked(user: UserItemUi) {
         _openFriend.value = user
     }
 
-    fun getFriends(firstId: Int, secondId: Int) {
+    fun getFriend(friend: List<Friend>) {
         viewModelScope.launch {
-            friend.value = userLocalRepository.getUserById(firstId)
-            friend.value = userLocalRepository.getUserById(secondId)
+            val friend = friend.map { userLocalRepository.getUserById(it.id) }
+            _friend.value = friend
         }
     }
 

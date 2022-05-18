@@ -1,4 +1,4 @@
-package com.anatolykravchenko.waveaccesstest.presentation.detail
+package com.anatolykravchenko.waveaccesstest.presentation.friends
 
 import androidx.recyclerview.widget.RecyclerView
 import com.anatolykravchenko.waveaccesstest.databinding.FreindItemBinding

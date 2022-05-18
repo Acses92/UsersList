@@ -54,7 +54,7 @@ data class UserItemDto(
         email,
         eyeColor,
         favoriteFruit,
-        friends =friends,
+        friends,
         gender,
         guid,
         id,
@@ -64,6 +64,6 @@ data class UserItemDto(
         name,
         phone,
         registered,
-        tags = tags
+        tags
     )
 }

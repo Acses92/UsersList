@@ -11,6 +11,9 @@ import com.anatolykravchenko.waveaccesstest.data.network.ApiService
 import com.anatolykravchenko.waveaccesstest.domain.UserNetworkRepository
 import com.anatolykravchenko.waveaccesstest.data.network.UserNetworkRepositoryImpl
 
+/**
+ * DI модуля сетевого взаимодействия
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {

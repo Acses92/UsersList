@@ -1,4 +1,4 @@
-package com.anatolykravchenko.waveaccesstest.presentation.detail
+package com.anatolykravchenko.waveaccesstest.presentation.friends
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

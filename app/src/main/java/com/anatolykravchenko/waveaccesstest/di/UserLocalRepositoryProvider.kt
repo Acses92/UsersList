@@ -9,6 +9,9 @@ import com.anatolykravchenko.waveaccesstest.data.database.UserLocalRepositoryImp
 import dagger.Provides
 import dagger.hilt.android.qualifiers.ApplicationContext
 
+/**
+ * DI репозитория БД
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object UserLocalRepositoryProvider {

@@ -15,6 +15,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.anatolykravchenko.waveaccesstest.presentation.friends.FriendsListAdapter
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.time.LocalDateTime
@@ -25,23 +26,23 @@ class DetailFragment: Fragment(R.layout.detail_fragment) {
     private val binding by viewBinding(DetailFragmentBinding::bind)
     private var user: UserItemUi? = null
     private val viewModel by viewModels<DetailFragmentViewModel>()
-    private lateinit var friends: MutableList<UserItemUi>
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         user = arguments?.getParcelable(DETAIL_KEY)
+        friendRecyclerViewSetup()
         setupOpenFriend()
         setupTextView()
+        setupDateFormat()
+        eyeColorImageSetup()
         backButtonPress()
         emailClickListener()
         phoneClickListener()
         coordinateClickListener()
-        setupDateFormat()
-        eyeColorImageSetup()
         favoriteFruitImageSetup()
         coordinateSetup()
-        friendRecyclerViewSetup()
+        viewModel.getFriend(user?.friends!!)
     }
 
 
@@ -50,8 +51,7 @@ class DetailFragment: Fragment(R.layout.detail_fragment) {
         with(binding.friendsRecyclerView) {
             adapter = friendListAdapter
             layoutManager = LinearLayoutManager(context)
-
-            viewModel._friend.observe(viewLifecycleOwner) {
+            viewModel.friend.observe(viewLifecycleOwner) {
                 friendListAdapter.submitList(it)
             }
         }
@@ -127,7 +127,6 @@ class DetailFragment: Fragment(R.layout.detail_fragment) {
             val gpsIntentUri = Uri.parse("geo:$latitude,$longitude")
             val mapIntent = Intent(Intent.ACTION_VIEW, gpsIntentUri)
             mapIntent.setPackage("com.google.android.apps.maps")
-            //Добавить проверку есть ли карты
             startActivity(mapIntent)
         }
     }
@@ -140,14 +139,12 @@ class DetailFragment: Fragment(R.layout.detail_fragment) {
                 putExtra(Intent.EXTRA_EMAIL, user?.email)
                 putExtra(Intent.EXTRA_SUBJECT, "Hello")
             }
-            //добавить проверку есть ли отправка сообщений
             startActivity(intent)
         }
     }
 
     private fun phoneClickListener() {
         binding.userPhoneDetailValueTv.setOnClickListener {
-            //добавить проверку, есть ли доступ к телефону
             val intent = Intent(Intent.ACTION_DIAL)
             intent.data = Uri.parse("tel:"+ user?.phone)
             startActivity(intent)
