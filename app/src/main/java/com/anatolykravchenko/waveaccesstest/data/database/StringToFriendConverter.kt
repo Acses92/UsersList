@@ -19,5 +19,4 @@ class StringToFriendConverter {
             ?.split(",")
             ?.mapNotNull { Friend(it.toIntOrNull() ?: return@mapNotNull null) }
     }
-
 }
