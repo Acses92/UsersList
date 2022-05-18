@@ -5,6 +5,7 @@ import androidx.room.TypeConverters
 import com.anatolykravchenko.waveaccesstest.data.database.ListToStringConverter
 import com.anatolykravchenko.waveaccesstest.data.database.StringToFriendConverter
 import com.anatolykravchenko.waveaccesstest.data.model.UserItemUi
+import com.anatolykravchenko.waveaccesstest.data.model.Friend
 
 @Entity(tableName = "user_item_local", primaryKeys = ["id"])
 data class UserItemEntity(
@@ -18,7 +19,7 @@ data class UserItemEntity(
     val favoriteFruit: String,
     //было val friends: List<Friend>
     @TypeConverters(StringToFriendConverter::class)
-    val friends: String,
+    val friends: List<Friend>,
     val gender: String,
     val guid: String,
     val id: Int,
@@ -40,7 +41,7 @@ data class UserItemEntity(
         email,
         eyeColor,
         favoriteFruit,
-        friends.toString(),
+        friends,
         gender,
         guid,
         id,

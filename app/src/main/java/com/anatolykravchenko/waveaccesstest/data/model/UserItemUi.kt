@@ -15,7 +15,7 @@ data class UserItemUi(
     val eyeColor: String,
     val favoriteFruit: String,
     //поправить val friends: List<Friend>,
-    val friends: String,
+    val friends: List<Friend>,
     val gender: String,
     val guid: String,
     val id: Int,

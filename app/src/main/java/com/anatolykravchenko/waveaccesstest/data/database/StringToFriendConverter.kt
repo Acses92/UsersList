@@ -11,9 +11,10 @@ class StringToFriendConverter {
     }
 
     @TypeConverter
-    fun stringToFriend(string:String): List<Friend> {
-        val result = string.replace("]","").replace("[","")
-            .replace(" ", "").split(",")
-        return result.map { Friend(it.toInt()) }
+    fun fromStringToFriends(value: String?): List<Friend>? {
+        return value
+            ?.split(",")
+            ?.mapNotNull { Friend(it.toIntOrNull() ?: return@mapNotNull null) }
     }
+
 }

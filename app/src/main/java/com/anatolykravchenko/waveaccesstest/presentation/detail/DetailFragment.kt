@@ -60,7 +60,7 @@ class DetailFragment: Fragment(R.layout.detail_fragment) {
     private fun setupTextView() {
         binding.userNameDetailValueTv.text = user?.name
         binding.userAgeDetailValueTv.text = user?.age.toString()
-        binding.userCompanyDetailValueTv.text = user?.friends
+        binding.userCompanyDetailValueTv.text = user?.company
         binding.userEmailDetailValueTv.text = user?.email
         binding.userPhoneDetailValueTv.text = user?.phone
         binding.userAddressDetailValueTv.text = user?.address

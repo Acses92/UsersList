@@ -54,7 +54,7 @@ data class UserItemDto(
         email,
         eyeColor,
         favoriteFruit,
-        friends = friends.toString(),
+        friends =friends,
         gender,
         guid,
         id,
