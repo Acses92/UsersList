@@ -2,6 +2,7 @@ package com.anatolykravchenko.waveaccesstest.data.database
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.anatolykravchenko.waveaccesstest.data.database.entity.UserItemEntity
 
@@ -22,7 +23,7 @@ interface UserDao {
     /**
      * Добавляет список пользователей
      */
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(userItemEntity: List<UserItemEntity>)
 
 }
