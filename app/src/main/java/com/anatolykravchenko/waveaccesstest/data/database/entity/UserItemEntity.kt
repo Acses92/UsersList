@@ -26,7 +26,6 @@ data class UserItemEntity(
     val name: String,
     val phone: String,
     val registered: String,
-    //было val tags: List<String>
     @TypeConverters(ListToStringConverter::class)
     val tags: List<String>
 ) {

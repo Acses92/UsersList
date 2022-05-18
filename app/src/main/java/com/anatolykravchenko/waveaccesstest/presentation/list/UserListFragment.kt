@@ -11,7 +11,6 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import com.anatolykravchenko.waveaccesstest.R
 import com.anatolykravchenko.waveaccesstest.databinding.UserListFragmentBinding
-import com.anatolykravchenko.waveaccesstest.presentation.adapters.UserListAdapter
 import com.anatolykravchenko.waveaccesstest.presentation.list.UserState.Success
 import com.anatolykravchenko.waveaccesstest.presentation.list.UserState.Error
 import com.anatolykravchenko.waveaccesstest.presentation.list.UserState.Loading

@@ -1,4 +1,4 @@
-package com.anatolykravchenko.waveaccesstest.presentation.adapters
+package com.anatolykravchenko.waveaccesstest.presentation.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

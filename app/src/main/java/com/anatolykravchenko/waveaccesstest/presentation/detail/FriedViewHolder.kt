@@ -1,4 +1,4 @@
-package com.anatolykravchenko.waveaccesstest.presentation.adapters
+package com.anatolykravchenko.waveaccesstest.presentation.detail
 
 import androidx.recyclerview.widget.RecyclerView
 import com.anatolykravchenko.waveaccesstest.databinding.FreindItemBinding

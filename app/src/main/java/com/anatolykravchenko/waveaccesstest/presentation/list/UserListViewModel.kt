@@ -30,19 +30,16 @@ class UserListViewModel @Inject constructor(
         loadUsers()
     }
 
-    private fun loadUser() {
-        viewModelScope.launch{
-            loadFromServerToDb()
-        }
-    }
-
     private fun loadUsers() {
         viewModelScope.launch {
             try {
-                val users: List<UserItemUi> = userNetworkRepository.getUserList().map {
-                    it.toUserItemUi() }
+                var users: List<UserItemUi> = userLocalRepository.getAll()
+                if(users.isEmpty()) {
+                    loadFromServerToDb()
+                    users = userLocalRepository.getAll()
+                }
                 _screenState.value = Success(users)
-            } catch(error: Throwable) {
+            } catch (error: Throwable) {
                 _screenState.value = Error(error)
             }
         }
@@ -53,6 +50,7 @@ class UserListViewModel @Inject constructor(
             try {
                 val users: List<UserItemUi> = userNetworkRepository.getUserList().map {
                     it.toUserItemUi() }
+                loadFromServerToDb()
                 _screenState.value = Success(users)
             } catch(error: Throwable) {
                 _screenState.value = Error(error)
@@ -61,8 +59,13 @@ class UserListViewModel @Inject constructor(
     }
 
     private suspend fun loadFromServerToDb() {
-        val localUserSet = userLocalRepository.getAll().map { it.toUserItemEntity() }.toHashSet()
+        val localUserSet = userLocalRepository.getAll()
         val newUserSet: List<UserItemUi> = userNetworkRepository.getUserList().map { it.toUserItemUi() }
+            .filterNot{
+                localUserSet
+                    .contains(it)
+            }
+        userLocalRepository.insert(newUserSet)
     }
 
     fun onUserClicked(user: UserItemUi) {

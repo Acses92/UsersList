@@ -77,7 +77,7 @@
                     android:layout_width="20dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:gravity="center|left"
+                    android:gravity="center|start"
                     android:text="@string/user_detail_age_text" />
 
                 <TextView
@@ -100,7 +100,7 @@
                     android:layout_width="20dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:gravity="center|left"
+                    android:gravity="center|start"
                     android:text="@string/user_detail_company_text" />
 
                 <TextView
@@ -124,7 +124,7 @@
                     android:layout_width="20dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:gravity="center|left"
+                    android:gravity="center|start"
                     android:text="@string/user_detail_email_text" />
 
                 <TextView
@@ -148,7 +148,7 @@
                     android:layout_width="20dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:gravity="center|left"
+                    android:gravity="center|start"
                     android:text="@string/user_detail_phone_text" />
 
                 <TextView
@@ -172,7 +172,7 @@
                     android:layout_width="20dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:gravity="center|left"
+                    android:gravity="center|start"
                     android:text="@string/user_detail_address_text" />
 
                 <TextView
@@ -195,7 +195,7 @@
                     android:layout_width="20dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="center|left"
+                    android:gravity="center|start"
                     android:text="@string/user_detail_about_text" />
 
                 <TextView
@@ -218,7 +218,7 @@
                     android:layout_width="20dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:gravity="center|left"
+                    android:gravity="center|start"
                     android:text="@string/user_detail_eye_color_text" />
 
                 <ImageView
@@ -240,7 +240,7 @@
                     android:layout_width="20dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:gravity="center|left"
+                    android:gravity="center|start"
                     android:text="@string/user_detail_favorite_fruit_text" />
 
                 <ImageView
@@ -263,7 +263,7 @@
                     android:layout_width="20dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:gravity="center|left"
+                    android:gravity="center|start"
                     android:text="@string/user_detail_registered_text" />
 
                 <TextView
@@ -287,7 +287,7 @@
                     android:layout_width="20dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:gravity="center|left"
+                    android:gravity="center|start"
                     android:text="@string/user_detail_coordinates_text" />
 
                 <TextView
@@ -296,7 +296,7 @@
                     android:layout_height="48dp"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="TextView" />
+                    android:text="@string/user_detail_coordinates_value" />
             </LinearLayout>
 
             <LinearLayout

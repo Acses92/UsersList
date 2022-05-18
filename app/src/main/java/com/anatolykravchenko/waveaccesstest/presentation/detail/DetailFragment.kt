@@ -17,7 +17,6 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import java.math.BigDecimal
 import java.math.RoundingMode
-import com.anatolykravchenko.waveaccesstest.presentation.adapters.FriendsListAdapter
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -44,7 +43,7 @@ class DetailFragment: Fragment(R.layout.detail_fragment) {
         coordinateSetup()
     }
     val user1: UserItemUi = UserItemUi("fd", "asd", 14, "das", "sad",
-    "sad", "fds", "dsa", "asd", "sad", "asd", 13, true,
+    "sad", "fds", "dsa", "asd", "sad", "asd", 13, false,
     41.154, 145.142, "alex", "asdf", "2016-02-14T09:26:27 -03:00", emptyList())
 
     val user2: UserItemUi = UserItemUi("fd", "asd", 14, "das", "sad",
