@@ -1,7 +1,7 @@
 package com.anatolykravchenko.waveaccesstest.data.model
 
 import android.os.Parcelable
-import com.anatolykravchenko.waveaccesstest.data.database.UserItemEntity
+import com.anatolykravchenko.waveaccesstest.data.database.entity.UserItemEntity
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

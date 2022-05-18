@@ -1,7 +1,8 @@
-package com.anatolykravchenko.waveaccesstest.data.database
+package com.anatolykravchenko.waveaccesstest.data.database.entity
 
 import androidx.room.Entity
 import androidx.room.TypeConverters
+import com.anatolykravchenko.waveaccesstest.data.database.ListToStringConverter
 import com.anatolykravchenko.waveaccesstest.data.model.UserItemUi
 
 @Entity(tableName = "user_item_local", primaryKeys = ["id"])

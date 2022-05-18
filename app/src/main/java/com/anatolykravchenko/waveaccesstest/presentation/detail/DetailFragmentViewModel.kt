@@ -2,6 +2,7 @@ package com.anatolykravchenko.waveaccesstest.presentation.detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import com.anatolykravchenko.waveaccesstest.R
 import com.anatolykravchenko.waveaccesstest.data.model.UserItemUi
 import com.anatolykravchenko.waveaccesstest.presentation.common.SingleLiveEvent
 
@@ -13,4 +14,6 @@ class DetailFragmentViewModel: ViewModel() {
     fun onFriendClicked(user: UserItemUi) {
         _openFriend.value = user
     }
+
+
 }

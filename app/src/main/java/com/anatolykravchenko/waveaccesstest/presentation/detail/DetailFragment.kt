@@ -32,6 +32,7 @@ class DetailFragment: Fragment(R.layout.detail_fragment) {
         super.onViewCreated(view, savedInstanceState)
         user = arguments?.getParcelable(DETAIL_KEY)
         friendRecyclerViewSetup()
+        setupOpenFriend()
         setupTextView()
         backButtonPress()
         emailClickListener()
@@ -44,11 +45,11 @@ class DetailFragment: Fragment(R.layout.detail_fragment) {
     }
     val user1: UserItemUi = UserItemUi("fd", "asd", 14, "das", "sad",
     "sad", "fds", "dsa", "asd", "sad", "asd", 13, true,
-    41.154, 145.142, "alex", "asdf", "14.58.1", emptyList())
+    41.154, 145.142, "alex", "asdf", "2016-02-14T09:26:27 -03:00", emptyList())
 
     val user2: UserItemUi = UserItemUi("fd", "asd", 14, "das", "sad",
         "sad", "fds", "dsa", "asd", "sad", "asd", 13, true,
-        41.154, 145.142, "alex", "asdf", "14.58.1", emptyList())
+        41.154, 145.142, "alex", "asdf", "2016-02-14T09:26:27 -03:00", emptyList())
 
     private fun friendRecyclerViewSetup() {
         val friendListAdapter = FriendsListAdapter(viewModel::onFriendClicked)
@@ -162,6 +163,21 @@ class DetailFragment: Fragment(R.layout.detail_fragment) {
         binding.backButton.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
+    }
+
+    private fun setupOpenFriend() {
+        viewModel.openFriend.observe(viewLifecycleOwner) {
+            openFriendDetail(it)
+        }
+    }
+
+    private fun openFriendDetail(friend: UserItemUi) {
+        val fragment = newInstance(friend)
+        parentFragmentManager
+            .beginTransaction()
+            .replace(R.id.main_fragment_container, fragment, "DetailFragment")
+            .addToBackStack(null)
+            .commit()
     }
 
     companion object {

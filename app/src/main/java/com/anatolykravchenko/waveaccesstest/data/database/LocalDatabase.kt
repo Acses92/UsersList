@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.anatolykravchenko.waveaccesstest.data.database.entity.UserItemEntity
 
 @Database(
     entities = [UserItemEntity::class],
