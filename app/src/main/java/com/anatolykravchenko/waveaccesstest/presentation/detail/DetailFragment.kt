@@ -41,7 +41,11 @@ class DetailFragment: Fragment(R.layout.detail_fragment) {
         eyeColorImageSetup()
         favoriteFruitImageSetup()
         coordinateSetup()
+        getFriendsId()
     }
+
+
+
     val user1: UserItemUi = UserItemUi("fd", "asd", 14, "das", "sad",
     "sad", "fds", "dsa", "asd", "sad", "asd", 13, false,
     41.154, 145.142, "alex", "asdf", "2016-02-14T09:26:27 -03:00", emptyList())
@@ -62,12 +66,11 @@ class DetailFragment: Fragment(R.layout.detail_fragment) {
     private fun setupTextView() {
         binding.userNameDetailValueTv.text = user?.name
         binding.userAgeDetailValueTv.text = user?.age.toString()
-        binding.userCompanyDetailValueTv.text = user?.company
+        binding.userCompanyDetailValueTv.text = user?.friends
         binding.userEmailDetailValueTv.text = user?.email
         binding.userPhoneDetailValueTv.text = user?.phone
         binding.userAddressDetailValueTv.text = user?.address
         binding.userAboutDetailValueTv.text = user?.about
-
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -169,6 +172,17 @@ class DetailFragment: Fragment(R.layout.detail_fragment) {
             openFriendDetail(it)
         }
     }
+
+    private fun getFriendsId() {
+        val firstFriend = user?.friends?.substringBefore(",")?.filter {
+            it.isDigit() }?.toInt()
+        val secondFriend = user?.friends?.substringAfter(",")?.filter {
+            it.isDigit()}?.toInt()
+        val listOfUser = listOf(firstFriend, secondFriend)
+        val user = viewModel
+    }
+
+
 
     private fun openFriendDetail(friend: UserItemUi) {
         val fragment = newInstance(friend)

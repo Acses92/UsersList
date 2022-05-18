@@ -18,4 +18,9 @@ interface UserLocalRepository {
      * Добавляет список пользователей
      */
     suspend fun insert(userItemUi: List<UserItemUi>)
+
+    /**
+     * Получает пользователя по ID
+     */
+    suspend fun getUserById(id: Int): List<UserItemUi>
 }

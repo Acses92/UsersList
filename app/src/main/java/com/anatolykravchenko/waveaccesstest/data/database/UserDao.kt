@@ -26,4 +26,10 @@ interface UserDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(userItemEntity: List<UserItemEntity>)
 
+    /**
+     * Получаем список пользователей по ID
+     */
+    @Query("SELECT * FROM user_item_local WHERE id = :id")
+    suspend fun getById(id: Int): List<UserItemEntity>
+
 }

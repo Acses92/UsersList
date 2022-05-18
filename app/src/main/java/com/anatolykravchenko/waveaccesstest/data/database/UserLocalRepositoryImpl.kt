@@ -14,4 +14,8 @@ class UserLocalRepositoryImpl(
     override suspend fun insert(userItemUi: List<UserItemUi>) {
         userDao.insert(userItemUi.map { it.toUserItemEntity() })
     }
+
+    override suspend fun getUserById(id: Int): List<UserItemUi> =
+        userDao.getById(id).map {it.toUserItemUi()}
+
 }
