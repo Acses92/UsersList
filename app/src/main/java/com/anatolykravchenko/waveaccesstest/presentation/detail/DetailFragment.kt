@@ -45,15 +45,6 @@ class DetailFragment: Fragment(R.layout.detail_fragment) {
     }
 
 
-
-    val user1: UserItemUi = UserItemUi("fd", "asd", 14, "das", "sad",
-    "sad", "fds", "dsa", "asd", "sad", "asd", 13, false,
-    41.154, 145.142, "alex", "asdf", "2016-02-14T09:26:27 -03:00", emptyList())
-
-    val user2: UserItemUi = UserItemUi("fd", "asd", 14, "das", "sad",
-        "sad", "fds", "dsa", "asd", "sad", "asd", 13, true,
-        41.154, 145.142, "alex", "asdf", "2016-02-14T09:26:27 -03:00", emptyList())
-
     private fun friendRecyclerViewSetup() {
         val friendListAdapter = FriendsListAdapter(viewModel::onFriendClicked)
         with(binding.friendsRecyclerView) {
@@ -63,8 +54,11 @@ class DetailFragment: Fragment(R.layout.detail_fragment) {
                 it.isDigit() }.toInt()
             val secondFriendId = user!!.friends.substringAfter(",").filter {
                 it.isDigit()}.toInt()
-            val firstFriend = viewModel.getFriends(firstFriendId)
-            val secondFriend = viewModel.getFriends(secondFriendId)
+            viewModel._friend.observe(viewLifecycleOwner) {
+                friendListAdapter.submitList(it)
+            }
+            viewModel.getFriends(firstFriendId, secondFriendId)
+
         }
     }
 

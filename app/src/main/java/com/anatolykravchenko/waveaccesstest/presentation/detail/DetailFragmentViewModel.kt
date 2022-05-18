@@ -20,21 +20,17 @@ class DetailFragmentViewModel @Inject constructor(
     val openFriend: LiveData<UserItemUi> = _openFriend
 
     private val friend = MutableLiveData<List<UserItemUi>>()
-    val screenState:LiveData<List<UserItemUi>> = friend
+    val _friend:LiveData<List<UserItemUi>> = friend
 
     fun onFriendClicked(user: UserItemUi) {
         _openFriend.value = user
     }
 
-    fun getFriends(id: Int) {
+    fun getFriends(firstId: Int, secondId: Int) {
         viewModelScope.launch {
-            friend.value = userLocalRepository.getUserById(id)
+            friend.value = userLocalRepository.getUserById(firstId)
+            friend.value = userLocalRepository.getUserById(secondId)
         }
     }
 
-    sealed class UserState {
-        class Loading(): UserState()
-        class Success(val users: List<UserItemUi>): UserState()
-        class Error(val throwable: Throwable): UserState()
-    }
 }
