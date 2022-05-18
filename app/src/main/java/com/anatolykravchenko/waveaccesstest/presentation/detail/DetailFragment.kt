@@ -50,15 +50,10 @@ class DetailFragment: Fragment(R.layout.detail_fragment) {
         with(binding.friendsRecyclerView) {
             adapter = friendListAdapter
             layoutManager = LinearLayoutManager(context)
-            val firstFriendId = user!!.friends.substringBefore(",").filter {
-                it.isDigit() }.toInt()
-            val secondFriendId = user!!.friends.substringAfter(",").filter {
-                it.isDigit()}.toInt()
+
             viewModel._friend.observe(viewLifecycleOwner) {
                 friendListAdapter.submitList(it)
             }
-            viewModel.getFriends(firstFriendId, secondFriendId)
-
         }
     }
 
