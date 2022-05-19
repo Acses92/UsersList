@@ -14,26 +14,27 @@ import android.net.Uri
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class DetailFragment: Fragment(R.layout.detail_fragment) {
+class DetailFragment : Fragment(R.layout.detail_fragment) {
     private val binding by viewBinding(DetailFragmentBinding::bind)
-    private var user: UserItemUi? = null
-    private val viewModel by viewModels<DetailFragmentViewModel>()
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        user = arguments?.getParcelable(DETAIL_KEY)
         friendRecyclerViewSetup()
         setupOpenFriend()
         setupTextView()
-        setupDateFormat()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            setupDateFormat()
+        }
         eyeColorImageSetup()
         backButtonPress()
         emailClickListener()
@@ -41,7 +42,17 @@ class DetailFragment: Fragment(R.layout.detail_fragment) {
         coordinateClickListener()
         favoriteFruitImageSetup()
         coordinateSetup()
-        viewModel.getFriend(user?.friends!!)
+    }
+
+    @Inject
+    lateinit var detailFragmentViewModel: DetailFragmentViewModel.Factory
+
+    private val viewModel by viewModels<DetailFragmentViewModel> {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T =
+                    detailFragmentViewModel.create(arguments?.getParcelable(DETAIL_KEY)!!) as T
+
+        }
     }
 
 
@@ -50,34 +61,39 @@ class DetailFragment: Fragment(R.layout.detail_fragment) {
         with(binding.friendsRecyclerView) {
             adapter = friendListAdapter
             layoutManager = LinearLayoutManager(context)
-            viewModel.friend.observe(viewLifecycleOwner) {
-                friendListAdapter.submitList(it)
+            viewModel.friendState.observe(viewLifecycleOwner) {
+                //       friendListAdapter.submitList(it)
             }
         }
     }
 
     private fun setupTextView() {
-        binding.userNameDetailValueTv.text = user?.name
-        binding.userAgeDetailValueTv.text = user?.age.toString()
-        binding.userCompanyDetailValueTv.text = user?.company
-        binding.userEmailDetailValueTv.text = user?.email
-        binding.userPhoneDetailValueTv.text = user?.phone
-        binding.userAddressDetailValueTv.text = user?.address
-        binding.userAboutDetailValueTv.text = user?.about
+        viewModel.userState.observe(viewLifecycleOwner) { user ->
+            binding.userNameDetailValueTv.text = user.name
+            binding.userAgeDetailValueTv.text = user.age.toString()
+            binding.userCompanyDetailValueTv.text = user.company
+            binding.userEmailDetailValueTv.text = user.email
+            binding.userPhoneDetailValueTv.text = user.phone
+            binding.userAddressDetailValueTv.text = user.address
+            binding.userAboutDetailValueTv.text = user.about
+        }
+
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setupDateFormat() {
         val oldFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss z")
-        val date = LocalDateTime.parse(user?.registered, oldFormatter)
-        val formatter = DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy")
-        binding.userRegisteredDetailValueTv.text = formatter.format(date)
+        viewModel.userState.observe(viewLifecycleOwner) { user ->
+            val date = LocalDateTime.parse(user.registered, oldFormatter)
+            val formatter = DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy")
+            binding.userRegisteredDetailValueTv.text = formatter.format(date)
+        }
     }
 
 
     private fun eyeColorImageSetup() {
-        val eyeColor= user?.eyeColor
-        if (eyeColor != null) {
+        viewModel.userState.observe(viewLifecycleOwner) { user ->
+            val eyeColor = user.eyeColor
             when {
                 eyeColor.contains("green") ->
                     binding.eyeColorImangeView.setImageResource(R.drawable.green_eye_round)
@@ -85,15 +101,16 @@ class DetailFragment: Fragment(R.layout.detail_fragment) {
                     binding.eyeColorImangeView.setImageResource(R.drawable.blue_eye_round)
                 eyeColor.contains("brown") ->
                     binding.eyeColorImangeView.setImageResource(R.drawable.brown_eye_round)
-                else ->binding.eyeColorImangeView.setImageLevel(R.drawable.brown_eye_round)
+                else -> binding.eyeColorImangeView.setImageLevel(R.drawable.brown_eye_round)
             }
+
         }
     }
 
     private fun favoriteFruitImageSetup() {
-        val favoriteFruit = user?.favoriteFruit
-        if(favoriteFruit != null) {
-            when{
+        viewModel.userState.observe(viewLifecycleOwner) { user ->
+            val favoriteFruit = user.favoriteFruit
+            when {
                 favoriteFruit.contains("banana") ->
                     binding.favoriteFruiteImageView.setImageResource(R.drawable.ic_banana_draw)
                 favoriteFruit.contains("strawberry") ->
@@ -106,49 +123,58 @@ class DetailFragment: Fragment(R.layout.detail_fragment) {
 
     @SuppressLint("SetTextI18n")
     private fun coordinateSetup() {
-        val latitude = user?.latitude?.let {
-            BigDecimal(it).setScale(4, RoundingMode.DOWN)
+
+        viewModel.userState.observe(viewLifecycleOwner) { user ->
+            val latitude = user.latitude.let {
+                BigDecimal(it).setScale(4, RoundingMode.DOWN)
+            }
+            val longitude = user.longitude.let {
+                BigDecimal(it).setScale(4, RoundingMode.DOWN)
+            }
+            binding.userCoordinatesDetailValueTv.text =
+                    latitude.toString() + " " + longitude.toString()
         }
-        val longitude = user?.longitude?.let {
-            BigDecimal(it).setScale(4, RoundingMode.DOWN)
-        }
-        binding.userCoordinatesDetailValueTv.text = latitude.toString() + " " + longitude.toString()
     }
 
     private fun coordinateClickListener() {
-        val latitude = user?.latitude?.let {
-            BigDecimal(it).setScale(4, RoundingMode.DOWN)
-        }
-        val longitude = user?.longitude?.let {
-            BigDecimal(it).setScale(4, RoundingMode.DOWN)
-        }
-        binding.userCoordinatesDetailValueTv.setOnClickListener {
-            val gpsIntentUri = Uri.parse("geo:$latitude,$longitude")
-            val mapIntent = Intent(Intent.ACTION_VIEW, gpsIntentUri)
-            mapIntent.setPackage("com.google.android.apps.maps")
-            startActivity(mapIntent)
+        viewModel.userState.observe(viewLifecycleOwner) { user ->
+            val latitude = user.latitude.let {
+                BigDecimal(it).setScale(4, RoundingMode.DOWN)
+            }
+            val longitude = user.longitude.let {
+                BigDecimal(it).setScale(4, RoundingMode.DOWN)
+            }
+            binding.userCoordinatesDetailValueTv.setOnClickListener {
+                val gpsIntentUri = Uri.parse("geo:$latitude,$longitude")
+                val mapIntent = Intent(Intent.ACTION_VIEW, gpsIntentUri)
+                mapIntent.setPackage("com.google.android.apps.maps")
+                startActivity(mapIntent)
+            }
         }
     }
 
 
     private fun emailClickListener() {
-        binding.userEmailDetailValueTv.setOnClickListener {
-            val intent = Intent(Intent.ACTION_SENDTO).apply {
-                data = Uri.parse("mailto:")
-                putExtra(Intent.EXTRA_EMAIL, user?.email)
-                putExtra(Intent.EXTRA_SUBJECT, "Hello")
+        viewModel.userState.observe(viewLifecycleOwner) { user ->
+            binding.userEmailDetailValueTv.setOnClickListener {
+                val intent = Intent(Intent.ACTION_SENDTO).apply {
+                    data = Uri.parse("mailto:")
+                    putExtra(Intent.EXTRA_EMAIL, user.email)
+                    putExtra(Intent.EXTRA_SUBJECT, "Hello")
+                }
+                startActivity(intent)
             }
-            startActivity(intent)
         }
     }
 
     private fun phoneClickListener() {
-        binding.userPhoneDetailValueTv.setOnClickListener {
-            val intent = Intent(Intent.ACTION_DIAL)
-            intent.data = Uri.parse("tel:"+ user?.phone)
-            startActivity(intent)
+        viewModel.userState.observe(viewLifecycleOwner) { user ->
+            binding.userPhoneDetailValueTv.setOnClickListener {
+                val intent = Intent(Intent.ACTION_DIAL)
+                intent.data = Uri.parse("tel:" + user.phone)
+                startActivity(intent)
+            }
         }
-
     }
 
     private fun backButtonPress() {
@@ -163,8 +189,6 @@ class DetailFragment: Fragment(R.layout.detail_fragment) {
         }
     }
 
-
-
     private fun openFriendDetail(friend: UserItemUi) {
         val fragment = newInstance(friend)
         parentFragmentManager
@@ -173,7 +197,8 @@ class DetailFragment: Fragment(R.layout.detail_fragment) {
                 R.anim.slide_in_right,
                 R.anim.slide_out_left,
                 R.anim.slide_in_left,
-                R.anim.slide_out_right)
+                R.anim.slide_out_right
+            )
             .replace(R.id.main_fragment_container, fragment, "DetailFragment")
             .addToBackStack(null)
             .commit()
@@ -181,7 +206,7 @@ class DetailFragment: Fragment(R.layout.detail_fragment) {
 
     companion object {
         private const val DETAIL_KEY = "USER"
-        fun newInstance(user: UserItemUi): Fragment{
+        fun newInstance(user: UserItemUi): Fragment {
             val arg = Bundle()
             arg.putParcelable(DETAIL_KEY, user)
             val fragment = DetailFragment()
