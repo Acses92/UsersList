@@ -23,7 +23,7 @@ interface UserDao {
     /**
      * Добавляет список пользователей
      */
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(userItemEntity: List<UserItemEntity>)
 
     /**

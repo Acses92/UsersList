@@ -59,12 +59,7 @@ class UserListViewModel @Inject constructor(
     }
 
     private suspend fun loadFromServerToDb() {
-        val localUserSet = userLocalRepository.getAll()
         val newUserSet: List<UserItemUi> = userNetworkRepository.getUserList().map { it.toUserItemUi() }
-            .filterNot{
-                localUserSet
-                    .contains(it)
-            }
         userLocalRepository.insert(newUserSet)
     }
 

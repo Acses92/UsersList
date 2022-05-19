@@ -74,6 +74,12 @@ class UserListFragment: Fragment(R.layout.user_list_fragment) {
         val fragment = DetailFragment.newInstance(user)
         parentFragmentManager
             .beginTransaction()
+            .setCustomAnimations(
+                R.anim.slide_in_right,
+                R.anim.slide_out_left,
+                R.anim.slide_in_left,
+                R.anim.slide_out_right
+            )
             .replace(R.id.main_fragment_container, fragment, "DetailFragment")
             .addToBackStack(null)
             .commit()

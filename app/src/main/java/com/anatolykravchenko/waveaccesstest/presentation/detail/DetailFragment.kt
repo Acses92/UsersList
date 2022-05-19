@@ -15,7 +15,6 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.anatolykravchenko.waveaccesstest.presentation.friends.FriendsListAdapter
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.time.LocalDateTime
@@ -170,6 +169,11 @@ class DetailFragment: Fragment(R.layout.detail_fragment) {
         val fragment = newInstance(friend)
         parentFragmentManager
             .beginTransaction()
+            .setCustomAnimations(
+                R.anim.slide_in_right,
+                R.anim.slide_out_left,
+                R.anim.slide_in_left,
+                R.anim.slide_out_right)
             .replace(R.id.main_fragment_container, fragment, "DetailFragment")
             .addToBackStack(null)
             .commit()
