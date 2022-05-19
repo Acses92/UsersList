@@ -35,8 +35,8 @@ class DetailFragmentViewModel @AssistedInject constructor(
     private val _userState = MutableLiveData(user)
     val userState:LiveData<UserItemUi> = _userState
 
-    private val _friendState = MutableLiveData<List<Friend>>()
-    val friendState: LiveData<List<Friend>> = _friendState
+    private val _friend = MutableLiveData<List<UserItemUi>>()
+    val friend:LiveData<List<UserItemUi>> = _friend
 
     fun onFriendClicked(user: UserItemUi) {
         _openFriend.value = user
@@ -44,8 +44,8 @@ class DetailFragmentViewModel @AssistedInject constructor(
 
     private fun getFriend(friend: List<Friend>) {
         viewModelScope.launch {
-          //  val friend = friend.map { userLocalRepository.getUserById(it.id) }
-          //  _friendState.value = friend
+           val friend = friend.map { userLocalRepository.getUserById(it.id) }
+            _friend.value = friend
         }
     }
 

@@ -55,14 +55,13 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
         }
     }
 
-
     private fun friendRecyclerViewSetup() {
         val friendListAdapter = FriendsListAdapter(viewModel::onFriendClicked)
         with(binding.friendsRecyclerView) {
             adapter = friendListAdapter
             layoutManager = LinearLayoutManager(context)
-            viewModel.friendState.observe(viewLifecycleOwner) {
-                //       friendListAdapter.submitList(it)
+            viewModel.friend.observe(viewLifecycleOwner) {
+                       friendListAdapter.submitList(it)
             }
         }
     }
@@ -93,29 +92,25 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
 
     private fun eyeColorImageSetup() {
         viewModel.userState.observe(viewLifecycleOwner) { user ->
-            val eyeColor = user.eyeColor
             when {
-                eyeColor.contains("green") ->
+                user.eyeColor.contains("green") ->
                     binding.eyeColorImangeView.setImageResource(R.drawable.green_eye_round)
-                eyeColor.contains("blue") ->
+                user.eyeColor.contains("blue") ->
                     binding.eyeColorImangeView.setImageResource(R.drawable.blue_eye_round)
-                eyeColor.contains("brown") ->
+                user.eyeColor.contains("brown") ->
                     binding.eyeColorImangeView.setImageResource(R.drawable.brown_eye_round)
-                else -> binding.eyeColorImangeView.setImageLevel(R.drawable.brown_eye_round)
             }
-
         }
     }
 
     private fun favoriteFruitImageSetup() {
         viewModel.userState.observe(viewLifecycleOwner) { user ->
-            val favoriteFruit = user.favoriteFruit
             when {
-                favoriteFruit.contains("banana") ->
+                user.favoriteFruit.contains("banana") ->
                     binding.favoriteFruiteImageView.setImageResource(R.drawable.ic_banana_draw)
-                favoriteFruit.contains("strawberry") ->
+                user.favoriteFruit.contains("strawberry") ->
                     binding.favoriteFruiteImageView.setImageResource(R.drawable.ic_strawberry_draw)
-                favoriteFruit.contains("apple") ->
+                user.favoriteFruit.contains("apple") ->
                     binding.favoriteFruiteImageView.setImageResource(R.drawable.ic_apple_draw)
             }
         }
@@ -123,7 +118,6 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
 
     @SuppressLint("SetTextI18n")
     private fun coordinateSetup() {
-
         viewModel.userState.observe(viewLifecycleOwner) { user ->
             val latitude = user.latitude.let {
                 BigDecimal(it).setScale(4, RoundingMode.DOWN)
@@ -132,7 +126,7 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
                 BigDecimal(it).setScale(4, RoundingMode.DOWN)
             }
             binding.userCoordinatesDetailValueTv.text =
-                    latitude.toString() + " " + longitude.toString()
+                    "$latitude $longitude"
         }
     }
 
