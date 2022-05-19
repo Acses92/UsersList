@@ -2,7 +2,6 @@ package com.anatolykravchenko.waveaccesstest.presentation.list
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -28,12 +27,22 @@ class UserListFragment: Fragment(R.layout.user_list_fragment) {
         super.onViewCreated(view, savedInstanceState)
         setupAdapter()
         setupOpenDetail()
+        swipeContainerListener()
+        refreshButtonListener()
+    }
+
+    private fun refreshButtonListener() {
+        binding.refreshButton.setOnClickListener {
+            viewModel.onRefresh()
+        }
+    }
+
+    private fun swipeContainerListener() {
         binding.swipeContainer.setOnRefreshListener {
             viewModel.onRefresh()
             binding.swipeContainer.isRefreshing = false
         }
     }
-
 
     private fun setupAdapter() {
         val userListAdapter = UserListAdapter(viewModel::onUserClicked)
@@ -47,22 +56,25 @@ class UserListFragment: Fragment(R.layout.user_list_fragment) {
                 is Error -> {
                     binding.usersList.isVisible = false
                     binding.progressBar.isVisible = false
-                    Toast.makeText(context, "Ошибка", Toast.LENGTH_LONG)
-                        .show()
+                    binding.stateErrorTextView.isVisible = true
+                    binding.refreshButton.isVisible = true
                 }
                 is Success ->{
                     binding.usersList.isVisible = true
                     binding.progressBar.isVisible = false
+                    binding.stateErrorTextView.isVisible = false
+                    binding.refreshButton.isVisible = false
                     userListAdapter.submitList(state.users)
                 }
                 is Loading -> {
                     binding.usersList.isVisible = false
                     binding.progressBar.isVisible = true
+                    binding.stateErrorTextView.isVisible = false
+                    binding.refreshButton.isVisible = false
                 }
             }
         }
     }
-
 
     private fun setupOpenDetail() {
         viewModel.openUser.observe(viewLifecycleOwner) {

@@ -30,4 +30,6 @@
     <string name="user_detail_coordinates_value">Coordinates</string>
     <string name="user_detail_friends_header">Friends</string>
     <string name="users_list_header_tv">Users List</string>
+    <string name="state_error_tv">Ошибка при загрузке данных</string>
+    <string name="refresh_button_text">Обновить данные</string>
 </resources>
