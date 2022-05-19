@@ -13,14 +13,16 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        homeFragmentSetup()
+        if(savedInstanceState==null){
+            homeFragmentSetup()
+        }
     }
 
     private fun homeFragmentSetup() {
         val userListFragment = UserListFragment()
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.main_fragment_container, userListFragment, "USER_LIST_FRAGMENT")
+            .replace(R.id.main_fragment_container, userListFragment, "USER_LIST_FRAGMENT")
             .commit()
     }
 }

@@ -2,14 +2,22 @@ package com.anatolykravchenko.waveaccesstest.di
 
 import android.content.Context
 import com.anatolykravchenko.waveaccesstest.data.database.LocalDatabase
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 /**
  * DI локальной базы данных
+ *
  */
+@Module
+@InstallIn(SingletonComponent::class)
 object DatabaseProvider {
-    private var db: LocalDatabase? = null
-
+    @Provides
+    @Singleton
     fun getDb(context: Context): LocalDatabase {
-        return db?: LocalDatabase.create(context).also { db = it }
+        return  LocalDatabase.create(context)
     }
 }

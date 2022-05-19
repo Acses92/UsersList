@@ -8,6 +8,7 @@ import com.anatolykravchenko.waveaccesstest.domain.UserLocalRepository
 import com.anatolykravchenko.waveaccesstest.data.database.UserLocalRepositoryImpl
 import dagger.Provides
 import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Singleton
 
 /**
  * DI репозитория БД
@@ -15,12 +16,11 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 @Module
 @InstallIn(SingletonComponent::class)
 object UserLocalRepositoryProvider {
-    private var repository: UserLocalRepository? = null
 
     @Provides
+    @Singleton
     fun getRepository(@ApplicationContext context: Context): UserLocalRepository {
-        return repository ?:
-        UserLocalRepositoryImpl(DatabaseProvider.getDb(context).userDao)
-            .also { repository = it }
+        return UserLocalRepositoryImpl(DatabaseProvider.getDb(context).userDao)
+
     }
 }
