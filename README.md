@@ -17,7 +17,7 @@ Rest API - Retrofit
 Database - SQLite (Room)  
 Dependency Injection - Hilt. 
 
-Others -  Android Arhitecture Components, Databinding (kirich 1409 library), Livedata and Single Live Events. 
+Others -  Android Arhitecture Components, Viewbinding (kirich 1409 library), Livedata and Single Live Events. 
 
 ## Other
 Скомпелированный файл apk лежит по пути:  
