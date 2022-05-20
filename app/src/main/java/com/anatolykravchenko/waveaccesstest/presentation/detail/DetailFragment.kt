@@ -16,6 +16,7 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -58,10 +59,15 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
     private fun friendRecyclerViewSetup() {
         val friendListAdapter = FriendsListAdapter(viewModel::onFriendClicked)
         with(binding.friendsRecyclerView) {
+            val decorator = DividerItemDecoration(context,
+                DividerItemDecoration.VERTICAL)
+            decorator.setDrawable(resources.getDrawable(R.drawable.divider))
+            addItemDecoration(decorator)
             adapter = friendListAdapter
             layoutManager = LinearLayoutManager(context)
             viewModel.friend.observe(viewLifecycleOwner) {
                        friendListAdapter.submitList(it)
+
             }
         }
     }

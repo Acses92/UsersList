@@ -1,6 +1,5 @@
 package com.anatolykravchenko.waveaccesstest.presentation.detail
 
-import android.icu.util.Freezable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
