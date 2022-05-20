@@ -15,7 +15,7 @@ Kotlin coroutines
 Architecture - MVVM  
 Rest API - Retrofit  
 Database - SQLite (Room)  
-Dependency Injection - Hilt 
+Dependency Injection - Hilt.
 Others -  Android Arhitecture Components, Databinding (kirich 1409 library), Livedata and Single Live Events. 
 
 ## Other
