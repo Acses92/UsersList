@@ -158,7 +158,7 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
         viewModel.userState.observe(viewLifecycleOwner) { user ->
             binding.userEmailDetailValueTv.setOnClickListener {
                 val intent = Intent(Intent.ACTION_SENDTO).apply {
-                    data = Uri.parse("mailto:")
+                    data = Uri.parse("mailto:" + user.email)
                     putExtra(Intent.EXTRA_EMAIL, user.email)
                     putExtra(Intent.EXTRA_SUBJECT, "Hello")
                 }
